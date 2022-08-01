@@ -1,0 +1,122 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://asset/Item/inventory_container.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/signal_manager/inventory_manager.gd" type="Script" id=2]
+[ext_resource path="res://asset/Item/iteminfo.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/UI/Chest_rng.gd" type="Script" id=4]
+[ext_resource path="res://src/UI/Chest.gd" type="Script" id=5]
+[ext_resource path="res://asset/Item/inventory_player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/UI/UI_container.gd" type="Script" id=7]
+[ext_resource path="res://src/scene/Setting.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/UI/Split_stack.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/UI/hotbar.tscn" type="PackedScene" id=10]
+
+[node name="main" type="Node2D"]
+
+[node name="Game" type="Node2D" parent="."]
+
+[node name="Manager" type="Node2D" parent="."]
+
+[node name="inventory_manager" type="Node2D" parent="Manager"]
+script = ExtResource( 2 )
+item_in_hand_node = NodePath("../../ui/UI_container/item_in_hand")
+item_info = NodePath("../../ui/UI_container/iteminfo")
+split_stack = NodePath("../../ui/UI_container/Split_stack")
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="UI_container" type="Control" parent="ui"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 7 )
+settings = NodePath("Window/Setting")
+
+[node name="Window" type="Control" parent="ui/UI_container"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Setting" parent="ui/UI_container/Window" instance=ExtResource( 8 )]
+visible = false
+margin_left = -15.0
+margin_top = -101.0
+margin_right = 163.0
+margin_bottom = -14.0
+mouse_filter = 1
+
+[node name="inventory_container" parent="ui/UI_container/Window" instance=ExtResource( 1 )]
+margin_left = 1.0
+margin_top = -96.0
+margin_right = 164.0
+margin_bottom = -14.0
+
+[node name="inventory_container2" parent="ui/UI_container/Window" instance=ExtResource( 6 )]
+margin_left = -208.0
+margin_top = -117.0
+margin_right = -24.0
+margin_bottom = 118.0
+
+[node name="iteminfo" parent="ui/UI_container" instance=ExtResource( 3 )]
+visible = false
+margin_left = 267.0
+margin_top = 105.0
+margin_right = 347.0
+margin_bottom = 143.0
+
+[node name="hotbar" parent="ui/UI_container" instance=ExtResource( 10 )]
+margin_left = -68.0
+margin_top = -44.0
+margin_right = 84.0
+margin_bottom = -4.0
+size = 5
+
+[node name="item_in_hand" type="Control" parent="ui/UI_container"]
+mouse_filter = 2
+
+[node name="Button" type="Control" parent="ui/UI_container"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Chest" type="Button" parent="ui/UI_container/Button"]
+margin_left = 350.0
+margin_top = 141.0
+margin_right = 434.0
+margin_bottom = 161.0
+text = "chest"
+script = ExtResource( 5 )
+size = 5
+inventory_name = "Chest list"
+items = [ "gold_coin", "stone_brick", "magic_orb", "iron_sword", "helmet", "crystal" ]
+
+[node name="Chest2" type="Button" parent="ui/UI_container/Button"]
+margin_left = 349.0
+margin_top = 207.0
+margin_right = 433.0
+margin_bottom = 227.0
+text = "chest RNG"
+script = ExtResource( 4 )
+size = 20
+inventory_name = "Rand Chest"
+items = [ "gold_coin", "stone_brick", "wood", "crystal" ]
+number_of_items = 17
+
+[node name="Setting" type="Button" parent="ui/UI_container/Button"]
+margin_left = 350.0
+margin_top = 173.0
+margin_right = 434.0
+margin_bottom = 193.0
+text = "Setting"
+
+[node name="Split_stack" parent="ui/UI_container" instance=ExtResource( 9 )]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -220.0
+margin_top = -120.0
+margin_right = 220.0
+margin_bottom = 120.0
+
+[connection signal="pressed" from="ui/UI_container/Button/Chest" to="ui/UI_container/Button/Chest" method="_on_Chest_pressed"]
+[connection signal="pressed" from="ui/UI_container/Button/Chest2" to="ui/UI_container/Button/Chest2" method="_on_Chest_pressed"]
+[connection signal="pressed" from="ui/UI_container/Button/Setting" to="ui/UI_container" method="_on_Setting_pressed"]

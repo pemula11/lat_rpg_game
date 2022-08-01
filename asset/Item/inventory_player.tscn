@@ -1,0 +1,204 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://asset/font/Arcadepix Plus.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://inventory_player.gd" type="Script" id=2]
+[ext_resource path="res://asset/inventory/sprites/inner_panel.png" type="Texture" id=3]
+[ext_resource path="res://asset/inventory/sprites/title.png" type="Texture" id=4]
+[ext_resource path="res://asset/inventory/sprites/bar.png" type="Texture" id=5]
+[ext_resource path="res://asset/inventory/sprites/main panel.png" type="Texture" id=6]
+[ext_resource path="res://asset/inventory/sprites/x_normal.png" type="Texture" id=7]
+[ext_resource path="res://asset/inventory/sprites/x_pressed.png" type="Texture" id=8]
+[ext_resource path="res://asset/inventory/sprites/x_hover.png" type="Texture" id=9]
+[ext_resource path="res://asset/inventory/sprites/x_disabled.png" type="Texture" id=10]
+[ext_resource path="res://Equiqment.gd" type="Script" id=11]
+[ext_resource path="res://asset/Item/Inventory.tscn" type="PackedScene" id=12]
+[ext_resource path="res://asset/Item/Equiqment_slot.tscn" type="PackedScene" id=13]
+
+[sub_resource type="DynamicFont" id=1]
+size = 10
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 1 )
+
+[node name="inventory_container" type="NinePatchRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -102.0
+margin_top = -107.0
+margin_right = 84.0
+margin_bottom = 129.0
+mouse_filter = 1
+texture = ExtResource( 6 )
+region_rect = Rect2( 1.61024, 2.21022, 27.6804, 26.6629 )
+patch_margin_left = 8
+patch_margin_top = 6
+patch_margin_right = 8
+patch_margin_bottom = 6
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+script = ExtResource( 2 )
+inventory_left = NodePath("Inventory_Control/Inventory_left")
+inventory_right = NodePath("Inventory_Control/Inventory_right")
+equiqment = NodePath("Inventory_Control/Equiqment/Slot_container")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -52.0
+margin_top = -12.0
+margin_right = 68.0
+margin_bottom = 12.0
+mouse_filter = 1
+texture = ExtResource( 4 )
+patch_margin_left = 11
+patch_margin_top = 6
+patch_margin_right = 9
+patch_margin_bottom = 2
+
+[node name="Label" type="Label" parent="NinePatchRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0.266667, 0.243137, 0.243137, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "player Inventory"
+align = 1
+valign = 1
+
+[node name="CloseBTN" type="TextureButton" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -14.0
+margin_top = -1.0
+margin_bottom = 10.0
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 9 )
+texture_disabled = ExtResource( 10 )
+expand = true
+stretch_mode = 3
+
+[node name="Inventory_Control" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 11.0
+margin_top = 13.0
+margin_right = -9.0
+margin_bottom = -7.0
+custom_constants/separation = 2
+
+[node name="Equiqment" type="NinePatchRect" parent="Inventory_Control"]
+margin_right = 166.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 0, 90 )
+texture = ExtResource( 3 )
+region_rect = Rect2( 0.989311, 0.110748, 17.262, 18.1427 )
+patch_margin_left = 7
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+script = ExtResource( 11 )
+inventory_name = "Equiqment"
+title = NodePath("TextureRect/Label")
+slot_container = NodePath("Slot_container")
+head = NodePath("Slot_container/Equiqment_head")
+chest = NodePath("Slot_container/Equiqment_chest")
+main_hand = NodePath("Slot_container/Equiqment_main_hand")
+offhand = NodePath("Slot_container/Equiqment_offhand")
+
+[node name="TextureRect" type="TextureRect" parent="Inventory_Control/Equiqment"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -48.0
+margin_top = 16.0
+margin_right = 56.0
+margin_bottom = 18.0
+texture = ExtResource( 5 )
+stretch_mode = 1
+
+[node name="Label" type="Label" parent="Inventory_Control/Equiqment/TextureRect"]
+margin_left = -8.0
+margin_top = -16.0
+margin_right = 32.0
+margin_bottom = -2.0
+custom_colors/font_color = Color( 0.266667, 0.243137, 0.243137, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "-inventory name -"
+align = 1
+
+[node name="Slot_container" type="Control" parent="Inventory_Control/Equiqment"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 24.0
+margin_right = -20.0
+margin_bottom = -16.0
+
+[node name="Equiqment_head" parent="Inventory_Control/Equiqment/Slot_container" instance=ExtResource( 13 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -10.0
+margin_right = 10.0
+expand = true
+type = 1
+
+[node name="Equiqment_main_hand" parent="Inventory_Control/Equiqment/Slot_container" instance=ExtResource( 13 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -55.0
+margin_top = 33.0
+margin_right = -35.0
+margin_bottom = 53.0
+expand = true
+type = 3
+
+[node name="Equiqment_chest" parent="Inventory_Control/Equiqment/Slot_container" instance=ExtResource( 13 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -10.0
+margin_top = 33.0
+margin_right = 10.0
+margin_bottom = 53.0
+expand = true
+type = 2
+
+[node name="Equiqment_offhand" parent="Inventory_Control/Equiqment/Slot_container" instance=ExtResource( 13 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 38.0
+margin_top = 33.0
+margin_right = 58.0
+margin_bottom = 53.0
+expand = true
+type = 4
+
+[node name="Inventory_left" parent="Inventory_Control" instance=ExtResource( 12 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 92.0
+margin_right = 166.0
+margin_bottom = 152.0
+inventory_name = "pocket"
+size = 5
+
+[node name="Inventory_right" parent="Inventory_Control" instance=ExtResource( 12 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 154.0
+margin_right = 166.0
+margin_bottom = 214.0
+inventory_name = "inventory"
+size = 5
+
+[node name="Control" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 2.0
+margin_right = 16.0
+margin_bottom = 2.0
+
+[connection signal="pressed" from="CloseBTN" to="." method="_on_CloseBTN_pressed"]

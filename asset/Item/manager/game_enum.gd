@@ -1,0 +1,27 @@
+class_name Game_enum
+
+enum EQUIPMENT_TYPE {
+	NONE,
+	HEAD,
+	CHEST,
+	MAIN_HAND,
+	OFFHAND,
+}
+
+enum STAT {
+	VITALITY,
+	STRENGTH,
+	INTELLIGENCE,
+	DEXTERITY,
+	LUCK,
+	ALL_STAT,
+	LIFE_POINT,
+	REGENERATION,
+	LIFE_ON_HIT,
+	DAMAGE,
+	DEFENCE,
+	BONUS_EXPERIENCE,
+}
+
+func _ready() -> void:
+	pass

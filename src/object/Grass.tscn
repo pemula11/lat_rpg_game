@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://asset/objects/Grass.png" type="Texture" id=1]
+[ext_resource path="res://src/occollision/hurtbox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/object/Grass.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8.25, 8.375 )
+
+[node name="Grass" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -16, -16 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="hurtbox" parent="." instance=ExtResource( 2 )]
+collision_layer = 8
+monitorable = false
+
+[node name="CollisionShape2D" parent="hurtbox" index="0"]
+position = Vector2( 0, -1 )
+shape = SubResource( 1 )
+
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
+
+[editable path="hurtbox"]
